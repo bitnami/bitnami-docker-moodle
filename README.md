@@ -346,6 +346,10 @@ This would be an example of SMTP configuration using a GMail account:
     --volume /path/to/moodle-persistence:/bitnami \
     bitnami/moodle:latest
   ```
+  
+### Running behind reverse proxy (Nginx)
+
+For Moodle container, set value for flag ```--hostname``` to external domain address under which the service is available e.g. ```--hostname moodle.mycompany.com```, otherwise you will encounter unpredictable issues like this one: https://github.com/bitnami/bitnami-docker-moodle/issues/68.
 
 # Contributing
 
