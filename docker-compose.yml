@@ -14,10 +14,11 @@ services:
     env_file: moodle_conf.env
     restart: always
     ports:
-      - '8080:80'
+      #- '8080:80'
       - '8443:443'
     volumes:
       - 'moodle_data:/bitnami'
+      - './moodle_cert:/opt/bitnami/apache/conf/bitnami/certs/'
     depends_on:
       - mariadb
     networks:
