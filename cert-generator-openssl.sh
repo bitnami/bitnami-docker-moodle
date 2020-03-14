@@ -12,5 +12,6 @@ docker run -it -v $(pwd)/moodle_cert:/export frapsoft/openssl x509 -in /export/s
 # openssl rsa -in privkey.pem -out server.key
 #cp server.key moodle_cert/
 #cp server.crt moodle_cert/
-echo "Tartst biztonságos helyen a most generált 3 fájlt!"
+echo "A generált fájlok a moodle_cert mappában kerültek elhelyezésre."
+echo "A mappa privát kulcsot tartalmaz, gondoskodj róla, hogy illetéktelen ne férhessenek hozzá!"
 ls moodle_cert/

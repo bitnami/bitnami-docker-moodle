@@ -9,8 +9,8 @@ A **COVID-19** terjedése miatt Március 16-tól bezárnak a közoktatási inté
 
 ## A rendszerhez szükségek előkövetelmények
 - [Docker 18.x](https://docs.docker.com/install/) vagy újabb
-- [Docker-Compose 1.25.x](https://docs.docker.com/compose/install/) (csak Linux esetén)
-- [GitBash](https://gitforwindows.org/) (Csak Windows esetén)
+- [Docker-Compose 1.25.x](https://docs.docker.com/compose/install/) (Csak Linux esetén!)
+- [GitBash](https://gitforwindows.org/) (Csak Windows esetén!)
 
 ## Használata
 ### Működési elv
@@ -30,21 +30,21 @@ Windows, Linux, és macOS rendszereken ugyan úgy működnek a konténerek.
 _Figyeljünk arra, hogy a MOODLE_DATABASE_PASSWORD meg kell egyezzen a MARIADB_PASSWORD-el._<br><br>
 **A moodle_conf.env és mariadb_conf.env fájlokat indítás után titkosítva tároljuk! Csak akkor és addig legyenek olvasható szöveg formátumban, ameddig indítjuk vagy leállítjuk a konténereket!**
 
-### SSL cert beállítása - **_KÖTELEZŐ!_**
+### SSL tanusítvány beállítása HTTPS-hez - **_KÖTELEZŐ ELSŐ LÉPÉS!_**
 #### Meglévő cert használata
 1. Hozzunk létre a docker-compose.yml fájl mellé egy moodle_cert mappát.
 2. Másoljuk bele a privát kulcs fájlt és a cert fájlt, nevezzük át őket server.key és server.crt nevűekre.
 
 #### Átmeneti saját (self-signed) cert generálása
 Windows rendszeren GitBash-ben, Linux és macOS esetén terminálban adjuk ki a következő parancsot ebben a mappában.
-Kövessük az utasításokat és adjuk meg a megfelelő értékeket. A böngészők nem biztonságos kapcsolatnak fogják minősíteni a honlapot azonban az adatfolyam tikos marad. A fals minősítés oka, hogy nem hivatalos szerv állította ki ebben az esetben a cert-et. A titkosítás megléte [Wireshark](https://www.wireshark.org/) programmal tesztelhető.
 ```
 bash cert-generator-openssl.sh
 ```
+Kövessük az utasításokat és adjuk meg a megfelelő értékeket. A bekért adatok nem lesznek ellenőrizve, tesztelés esetén véletlenszerűek is lehetnek. A generált _server.csr_ fájl felhasználható hivatalos tanusítvány igénylésére is! <br> A böngészők nem biztonságos kapcsolatnak fogják minősíteni a honlapot azonban az adatfolyam tikos marad. A fals minősítés oka, hogy nem hivatalos szerv állította ki ebben az esetben a cert-et. <br> A titkosítás megléte [Wireshark](https://www.wireshark.org/) programmal tesztelhető.
 
 ### Indítás
 Windows rendszeren GitBash-ben, Linux és macOS esetén terminálban adjuk ki a következő parancsot ebben a mappában.
-A "-d kapcsoló opcionális, elrejti a logokat."
+A "-d" kapcsoló opcionális, elrejti a logokat.
 ```
 docker-compose up -d
 ```
@@ -54,13 +54,26 @@ Windows rendszeren GitBash-ben, Linux és macOS esetén terminálban adjuk ki a 
 ```
 docker-compose down
 ```
-_Az adatok megmaradnak a volume-okon, indításkor a rendszer újraindulásakor minden **megmarad**._
+_Az adatok megmaradnak a volume-okon, indításkor/újraindításkor a rendszer minden adata **megmarad**._
 
 ### Oldal elérése
 A szerver domainján, IP címén a **8443**-mas porton. A port változtatható a docker-compose.yml fájlban.
 
+### Logok megtekintése
+#### Moodle
+```
+docker logs bitnami-docker-moodle_moodle_1
+```
+
+#### MariaDB
+```
+docker logs bitnami-docker-moodle_mariadb_1
+```
 ### Adatok
 Az adatok Docker Volume-ként tárolódnak a lokális gépen **_bitnami-docker-moodle_mariadb_data_** és **_bitnami-docker-moodle_moodle_data_** néven. Ezeknek a biztonsági mentéséről gondoskodnia kell ez intézménynek. Segítség: [Docker volumes](https://docs.docker.com/storage/volumes/)
 
 ### Jótanácsok
 - Érdemes 2 rendszert indítani, az egyik legyen az éles, a másik amivel lehet tesztelni különbüző beállításokat. Csupán duplikáljuk az egész mappát, az újat nevezzük át, lépjünk be és a fenti paranccsal indítsuk el a rendszert!
+- A konténerek és volume-k nevében a 'bitnami-docker-moodle' rész a docker-compose.yml fájlt tartalmazó mappából jön.
+
+A rendszer használatáért, abból következő esetleges károkért és mulasztásokért nem vállalok felelősséget! Használjátok odafigyeléssel! :)
