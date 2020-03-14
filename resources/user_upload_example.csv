@@ -1,0 +1,7 @@
+username,firstname,lastname,email,password,lang
+student1,Student,One,s1@example.com,nemnemNem1&,hu
+student2,Student,Two,s2@example.com,nemnemNem1&,hu
+student3,Student,Three,s3@example.com,nemnemNem1&,hu
+teacher1,Teacher,One,t1@example.com,nemnemNem1&,hu
+teacher2,Teacher,Two,t2@example.com,nemnemNem1&,hu
+teacher3,Teacher,Three,t3@example.com,nemnemNem1&,hu
