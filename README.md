@@ -17,18 +17,18 @@ A **COVID-19** terjedése miatt Március 16-tól bezárnak a közoktatási inté
 2 konténert indít el a rendszer (Moodle és MariaDB), melyek automatikusan konfigurálásra kerülnek a .env fájlokkal. Ez kb. 2-3 percet vesz igénybe és máris kész egy működő Moodle szerver.<br>
 Windows, Linux, és macOS rendszereken ugyan úgy működnek a konténerek.
 ### Előzetes beállítások
-1. Módosítsuk a moodle_conf.env fájlban a következő értéket: <br>
+1. Módosítsuk a moodle_conf.env fájlban (legalább) a következő értéket: <br>
   - MOODLE_DATABASE_PASSWORD=**moodle-bot-pw-changeme**
   - MOODLE_PASSWORD=**init_user**
-2. Módosítsuk a mariadb_conf.env fájlban a következő értékeket: <br>
+2. Módosítsuk a mariadb_conf.env fájlban (legalább) a következő értékeket: <br>
   - MARIADB_PASSWORD=**moodle-bot-pw-changeme**
   - MARIADB_ROOT_PASSWORD=**soe_master_pw_changeme**
 3. Windows esetén még:
   - Hyper-V engedélyezése
   - Docker elindítása
 
-_Figyeljünk arra, hogy a MOODLE_DATABASE_PASSWORD meg kell egyezzen a MARIADB_PASSWORD-el._<br><br>
-**A moodle_conf.env és mariadb_conf.env fájlokat indítás után titkosítva tároljuk! Csak akkor és addig legyenek olvasható szöveg formátumban, ameddig indítjuk vagy leállítjuk a konténereket!**
+_Figyeljünk arra, hogy a MOODLE_DATABASE_PASSWORD meg kell egyezzen a MARIADB_PASSWORD-el._<br>
+**A moodle_conf.env és mariadb_conf.env fájlokat indítás után titkosítsuk! Csak akkor és addig legyenek olvasható szöveg formátumban, ameddig indítjuk vagy leállítjuk a konténereket!** <br> Példa platform-független, ingyenes titkosító szoftverre: [Cryptomator](https://cryptomator.org/).
 
 ### SSL tanusítvány beállítása HTTPS-hez - **_KÖTELEZŐ ELSŐ LÉPÉS!_**
 #### Meglévő cert használata
@@ -57,7 +57,9 @@ docker-compose down
 _Az adatok megmaradnak a volume-okon, indításkor/újraindításkor a rendszer minden adata **megmarad**._
 
 ### Oldal elérése
-A szerver domainján, IP címén a **8443**-mas porton. A port változtatható a docker-compose.yml fájlban.
+A szerver domainján vagy IP címén a **8443**-mas porton. A port változtatható a docker-compose.yml fájlban.
+> iskolam-cime.hu:8443 <br>
+> 192.168.1.3:8443 <br>
 
 ### Logok megtekintése
 #### Moodle
@@ -70,7 +72,7 @@ docker logs bitnami-docker-moodle_moodle_1
 docker logs bitnami-docker-moodle_mariadb_1
 ```
 ### Adatok
-Az adatok Docker Volume-ként tárolódnak a lokális gépen **_bitnami-docker-moodle_mariadb_data_** és **_bitnami-docker-moodle_moodle_data_** néven. Ezeknek a biztonsági mentéséről gondoskodnia kell ez intézménynek. Segítség: [Docker volumes](https://docs.docker.com/storage/volumes/)
+Az adatok Docker Volume formában tárolódnak (biztonsági okokból) a lokális gépen **_bitnami-docker-moodle_mariadb_data_** és **_bitnami-docker-moodle_moodle_data_** néven. Ezeknek a biztonsági mentéséről gondoskodnia kell ez intézménynek. Segítség: [Docker volumes](https://docs.docker.com/storage/volumes/)
 
 ### Jótanácsok
 - Érdemes 2 rendszert indítani, az egyik legyen az éles, a másik amivel lehet tesztelni különbüző beállításokat. Csupán duplikáljuk az egész mappát, az újat nevezzük át, lépjünk be és a fenti paranccsal indítsuk el a rendszert!
