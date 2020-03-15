@@ -1,7 +1,7 @@
 mkdir moodle_cert
-docker run -it -v $(pwd)/moodle_cert:/export frapsoft/openssl genrsa -out /export/server.key 2048
-docker run -it -v $(pwd)/moodle_cert:/export frapsoft/openssl req -new -key /export/server.key -out /export/server.csr
-docker run -it -v $(pwd)/moodle_cert:/export frapsoft/openssl x509 -in /export/server.csr -out /export/server.crt -req -signkey /export/server.key -days 365
+docker run -it --rm -v $(pwd)/moodle_cert:/export frapsoft/openssl genrsa -out /export/server.key 2048
+docker run -it --rm -v $(pwd)/moodle_cert:/export frapsoft/openssl req -new -key /export/server.key -out /export/server.csr
+docker run -it --rm -v $(pwd)/moodle_cert:/export frapsoft/openssl x509 -in /export/server.csr -out /export/server.crt -req -signkey /export/server.key -days 365
 ###Linux natív parancsok SSL certhez###
 # openssl genrsa -out server.key 2048
 # openssl req -new -key server.key -out server.csr

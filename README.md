@@ -44,14 +44,15 @@ Kövessük az utasításokat és adjuk meg a megfelelő értékeket. A bekért a
 
 ### Indítás
 Windows rendszeren GitBash-ben, Linux és macOS esetén terminálban adjuk ki a következő parancsot ebben a mappában.
-A "-d" kapcsoló opcionális, elrejti a logokat.
 ```
+source project-config.sh
 docker-compose up -d
 ```
 
 ### Leállítás
 Windows rendszeren GitBash-ben, Linux és macOS esetén terminálban adjuk ki a következő parancsot ebben a mappában.
 ```
+source project-config.sh
 docker-compose down
 ```
 _Az adatok megmaradnak a volume-okon, indításkor/újraindításkor a rendszer minden adata **megmarad**._
@@ -64,18 +65,26 @@ A szerver domainján vagy IP címén a **8443**-mas porton. A port változtathat
 ### Logok megtekintése
 #### Moodle
 ```
-docker logs bitnami-docker-moodle_moodle_1
+source project-config.sh
+docker logs ${COMPOSE_PROJECT_NAME}_moodle_1
 ```
 
 #### MariaDB
 ```
-docker logs bitnami-docker-moodle_mariadb_1
+source project-config.sh
+docker logs ${COMPOSE_PROJECT_NAME}_mariadb_1
 ```
 ### Adatok
-Az adatok Docker Volume formában tárolódnak (biztonsági okokból) a lokális gépen **_bitnami-docker-moodle_mariadb_data_** és **_bitnami-docker-moodle_moodle_data_** néven. Ezeknek a biztonsági mentéséről gondoskodnia kell ez intézménynek. Segítség: [Docker volumes](https://docs.docker.com/storage/volumes/)
+Az adatok Docker Volume formában tárolódnak (biztonsági okokból) a lokális gépen. Ezeknek a biztonsági mentéséről gondoskodnia kell ez intézménynek. A volume nevek a _COMPOSE_PROJECT_NAME_ és a docker-compose.yml fájlban meghatározott volume névből tevődnek össze. Ha a COMPOSE_PROJECT_NAME értéke _elearning_, akkor a 2 tároló neve alap esetben:
+> elearning_moodle_data <br>
+> elearning_mariadb_data
+
+Segítség: [Docker volumes](https://docs.docker.com/storage/volumes/)
 
 ### Jótanácsok
-- Érdemes 2 rendszert indítani, az egyik legyen az éles, a másik amivel lehet tesztelni különbüző beállításokat. Csupán duplikáljuk az egész mappát, az újat nevezzük át, lépjünk be és a fenti paranccsal indítsuk el a rendszert!
-- A konténerek és volume-k nevében a 'bitnami-docker-moodle' rész a docker-compose.yml fájlt tartalmazó mappából jön.
+- Érdemes 2 rendszert indítani, az egyik legyen az éles, a másik amivel lehet tesztelni különbüző beállításokat.
+  1. Duplikáljuk az egész mappát.
+  2. Az project-config.sh-ban változtassuk meg a _COMPOSE_PROJECT_NAME_ környezeti változó értékét.
+  3. Adjuk ki az indító utasítást.
 
 A rendszer használatáért, abból következő esetleges károkért és mulasztásokért nem vállalok felelősséget! Használjátok odafigyeléssel! :)
