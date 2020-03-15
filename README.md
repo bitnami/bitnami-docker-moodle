@@ -26,6 +26,7 @@ Windows, Linux, és macOS rendszereken ugyan úgy működnek a konténerek.
 3. Windows esetén még:
   - Hyper-V engedélyezése
   - Docker elindítása
+  - Meghajtó [megosztása](https://docs.docker.com/docker-for-windows/#docker-settings-dialog) a Docker-rel
 
 _Figyeljünk arra, hogy a MOODLE_DATABASE_PASSWORD meg kell egyezzen a MARIADB_PASSWORD-el._<br>
 **A moodle_conf.env és mariadb_conf.env fájlokat indítás után titkosítsuk! Csak akkor és addig legyenek olvasható szöveg formátumban, ameddig indítjuk vagy leállítjuk a konténereket!** <br> Példa platform-független, ingyenes titkosító szoftverre: [Cryptomator](https://cryptomator.org/).
@@ -59,8 +60,8 @@ _Az adatok megmaradnak a volume-okon, indításkor/újraindításkor a rendszer 
 
 ### Oldal elérése
 A szerver domainján vagy IP címén a **8443**-mas porton. A port változtatható a docker-compose.yml fájlban.
-> iskolam-cime.hu:8443 <br>
-> 192.168.1.3:8443 <br>
+> https://iskolam-cime.hu:8443 <br>
+> https://192.168.1.3:8443 <br>
 
 ### Logok megtekintése
 #### Moodle
