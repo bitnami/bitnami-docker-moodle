@@ -1,24 +1,29 @@
-version: '2'
+version: '3'
 services:
   mariadb:
     image: 'bitnami/mariadb:10.1'
     env_file: mariadb_conf.env
+    restart: always
     volumes:
       - 'mariadb_data:/bitnami'
     networks:
-      - moodle_nw
+      moodle_nw:
+        ipv4_address: 172.28.45.2
   moodle:
     image: 'bitnami/moodle:3'
     env_file: moodle_conf.env
+    restart: always
     ports:
-      - '8080:80'
+      #- '8080:80'
       - '8443:443'
     volumes:
       - 'moodle_data:/bitnami'
+      - './moodle_cert:/opt/bitnami/apache/conf/bitnami/certs/'
     depends_on:
       - mariadb
     networks:
-      - moodle_nw
+      moodle_nw:
+        ipv4_address: 172.28.45.3
 volumes:
   mariadb_data:
     driver: local
@@ -26,3 +31,8 @@ volumes:
     driver: local
 networks:
   moodle_nw:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.45.0/24
