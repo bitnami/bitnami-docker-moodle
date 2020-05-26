@@ -333,6 +333,30 @@ By default, this container packs a generic English version of Moodle. Neverthele
 
 Bear in mind that in the example above `es_ES.UTF-8 UTF-8` is the locale needed for the desired Language Pack to install. You may change this value to the locale corresponding to your pack.
 
+### Add all supported locales
+
+Alternatively, you can generate all supported locales by setting the build environment variable `WITH_ALL_LOCALES` to `1`. The generation of the locales takes some time.
+
+* Modify the [`docker-compose.yml`](https://github.com/bitnami/bitnami-docker-moodle/blob/master/docker-compose.yml) file present in this repository:
+
+  ```yaml
+  moodle:
+  ...
+    # image: 'bitnami/moodle:3' # remove this line !
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - WITH_ALL_LOCALES=1
+  ...
+  ```
+
+* For manual execution:
+
+  ```console
+  $ docker build -t bitnami/moodle:latest --build-arg WITH_ALL_LOCALES=1 .
+  ```
+
 # Customize this image
 
 The Bitnami Moodle Docker image is designed to be extended so it can be used as the base image for your custom web applications.
