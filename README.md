@@ -333,9 +333,37 @@ By default, this container packs a generic English version of Moodle. Neverthele
 
 Bear in mind that in the example above `es_ES.UTF-8 UTF-8` is the locale needed for the desired Language Pack to install. You may change this value to the locale corresponding to your pack.
 
+### Add some extra locales
+
+Alternatively, you can add some extra locales using docker build arg `EXTRA_LOCALES` with the desired values.
+The value must be entries from file `/usr/share/i18n/SUPPORTED` in the container `docker.io/bitnami/minideb:buster`.
+The default locales `en_AU.UTF-8 UTF-8` and `en_US.UTF-8 UTF-8` will still be packaged, defaulting to `en_US.UTF-8 UTF-8`.
+You MUST NOT re-add them.
+If you're adding several new locales, separate them with a comma and a space, like so: `"fr_CH.UTF-8 UTF-8, de_CH.UTF-8 UTF-8, it_CH.UTF-8 UTF-8, de_DE.UTF-8 UTF-8"`.
+
+* Modify the [`docker-compose.yml`](https://github.com/bitnami/bitnami-docker-moodle/blob/master/docker-compose.yml) file present in this repository:
+
+  ```yaml
+  moodle:
+  ...
+    # image: 'bitnami/moodle:3' # remove this line !
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - EXTRA_LOCALES="fr_CH.UTF-8 UTF-8, de_CH.UTF-8 UTF-8, it_CH.UTF-8 UTF-8, de_DE.UTF-8 UTF-8"
+  ...
+  ```
+
+* For manual execution:
+
+  ```console
+  $ docker build -t bitnami/moodle:latest --build-arg EXTRA_LOCALES="fr_CH.UTF-8 UTF-8, de_CH.UTF-8 UTF-8, it_CH.UTF-8 UTF-8, de_DE.UTF-8 UTF-8" .
+  ```
+
 ### Add all supported locales
 
-Alternatively, you can generate all supported locales by setting the build environment variable `WITH_ALL_LOCALES` to `1`. The generation of the locales takes some time.
+Finally, you can generate all supported locales by setting the build environment variable `WITH_ALL_LOCALES` to `1`. The generation of the locales takes some time.
 
 * Modify the [`docker-compose.yml`](https://github.com/bitnami/bitnami-docker-moodle/blob/master/docker-compose.yml) file present in this repository:
 
