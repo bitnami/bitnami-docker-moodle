@@ -338,7 +338,7 @@ To use `EXTRA_LOCALES`, you have two options:
 
 #### Enable all supported locales using the `WITH_ALL_LOCALES` build-time variable
 
-Finally, you can generate all supported locales by setting the build environment variable `WITH_ALL_LOCALES=yes`. Note that the generation of all the locales takes some time.
+You can generate all supported locales by setting the build environment variable `WITH_ALL_LOCALES=yes`. Note that the generation of all the locales takes some time.
 
 To use `WITH_ALL_LOCALES`, you have two options:
 
@@ -364,7 +364,7 @@ To use `WITH_ALL_LOCALES`, you have two options:
 
 #### Extending the default image
 
-You can [extend](https://github.com/bitnami/bitnami-docker-moodle#extend-this-image) the default image and adding as many locales as needed:
+Finally, you can [extend](https://github.com/bitnami/bitnami-docker-moodle#extend-this-image) the default image and adding as many locales as needed:
 
 ```Dockerfile
 FROM bitnami/moodle
