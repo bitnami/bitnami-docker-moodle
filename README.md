@@ -352,14 +352,14 @@ To use `WITH_ALL_LOCALES`, you have two options:
       context: .
       dockerfile: Dockerfile
       args:
-        - WITH_ALL_LOCALES=1
+        - WITH_ALL_LOCALES=yes
   ...
   ```
 
 * For manual execution, clone the repository and run the following command inside the `3/debian-10` directory:
 
   ```console
-  $ docker build -t bitnami/moodle:latest --build-arg WITH_ALL_LOCALES=1 .
+  $ docker build -t bitnami/moodle:latest --build-arg WITH_ALL_LOCALES=yes .
   ```
 
 #### Extending the default image
