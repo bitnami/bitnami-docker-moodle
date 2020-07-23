@@ -1,12 +1,13 @@
 FROM docker.io/bitnami/minideb:buster
 LABEL maintainer "Bitnami <containers@bitnami.com>"
 
-ARG EXTRA_LOCALES
-ARG WITH_ALL_LOCALES=0
 ENV HOME="/" \
     OS_ARCH="amd64" \
     OS_FLAVOUR="debian-10" \
     OS_NAME="linux"
+
+ARG EXTRA_LOCALES=""
+ARG WITH_ALL_LOCALES="no"
 
 COPY prebuildfs /
 # Install required system packages and dependencies
@@ -23,11 +24,15 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN chmod g+rwX /opt/bitnami
 RUN localedef -c -f UTF-8 -i en_US en_US.UTF-8
 RUN sed -i -e '/pam_loginuid.so/ s/^#*/#/' /etc/pam.d/cron
-RUN /opt/bitnami/scripts/locales/add-locales.sh
+RUN update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX && \
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+RUN echo 'en_AU.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen
+RUN echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen
 
 COPY rootfs /
-RUN /opt/bitnami/scripts/apache/postunpack.sh
+RUN /opt/bitnami/scripts/locales/add-extra-locales.sh
 RUN /opt/bitnami/scripts/php/postunpack.sh
+RUN /opt/bitnami/scripts/apache/postunpack.sh
 RUN /opt/bitnami/scripts/apache-modphp/postunpack.sh
 RUN /opt/bitnami/scripts/moodle/postunpack.sh
 RUN /opt/bitnami/scripts/mysql-client/postunpack.sh
