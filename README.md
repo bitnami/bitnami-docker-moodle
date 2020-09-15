@@ -15,7 +15,6 @@ $ docker-compose up -d
 
 Log in as administrator using **user** as username and **bitnami** as password. See the [Environment Variables](#environment-variables) section to get the full list of configuration parameters.
 
-
 ## Why use Bitnami Images?
 
 * Bitnami closely tracks upstream source changes and promptly publishes new versions of this image using our automated systems.
