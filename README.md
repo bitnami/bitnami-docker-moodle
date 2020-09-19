@@ -13,7 +13,7 @@ $ curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-moodle/mast
 $ docker-compose up -d
 ```
 
-Log in as administrator using **user** as username and **bitnami** as password. See the [Environment Variables](#environment-variables) section to get the full list of configuration parameters.
+You can find the default credentials and available configuration options in the [Environment Variables](#environment-variables) section.
 
 ## Why use Bitnami Images?
 
