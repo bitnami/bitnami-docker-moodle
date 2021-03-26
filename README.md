@@ -229,6 +229,7 @@ Available environment variables:
 - `MOODLE_EMAIL`: Moodle application email. Default: **user@example.com**
 - `MOODLE_SITE_NAME`: Moodle site name. Default: **New Site**
 - `MOODLE_SKIP_BOOTSTRAP`: Do not initialize the Moodle database for a new deployment. This is necessary in case you use a database that already has Moodle data. Default: **no**
+- `MOODLE_CRON_MINUTES`: Moodle maintenance cron frequency (in minutes). 0=Disabled. Default: **1**
 
 ##### Use an existing database
 

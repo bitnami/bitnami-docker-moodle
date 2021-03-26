@@ -50,6 +50,7 @@ moodle_env_vars=(
     SMTP_PROTOCOL
     MARIADB_HOST
     MARIADB_PORT_NUMBER
+    MOODLE_CRON_MINUTES
 )
 for env_var in "${moodle_env_vars[@]}"; do
     file_env_var="${env_var}_FILE"
