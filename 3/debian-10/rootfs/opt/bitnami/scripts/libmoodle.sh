@@ -194,9 +194,11 @@ EOF
     # Ensure Moodle cron jobs are created when running setup with a root user
     local -a cron_cmd=("${PHP_BIN_DIR}/php" "${MOODLE_BASE_DIR}/admin/cli/cron.php")
     if am_i_root; then
-        if [ ${MOODLE_CRON_MINUTES} -gt 0 ]; then generate_cron_conf "moodle" "${cron_cmd[*]} > /dev/null 2>> ${MOODLE_DATA_DIR}/moodle-cron.log" --run-as "$WEB_SERVER_DAEMON_USER" --schedule "*/${MOODLE_CRON_MINUTES} * * * *"
-    else if
-        if [ ${MOODLE_CRON_MINUTES} -eq 0 ]; then  warn "Skipping cron configuration for Moodle because MOODLE_CRON_MINUTES is set to 0"
+        if [ ${MOODLE_CRON_MINUTES} -gt 0 ]; then 
+            generate_cron_conf "moodle" "${cron_cmd[*]} > /dev/null 2>> ${MOODLE_DATA_DIR}/moodle-cron.log" --run-as "$WEB_SERVER_DAEMON_USER" --schedule "*/${MOODLE_CRON_MINUTES} * * * *"
+        else
+            warn "Skipping cron configuration for Moodle because MOODLE_CRON_MINUTES is set to 0"
+        fi
     else
         warn "Skipping cron configuration for Moodle because of running as a non-root user"
     fi
